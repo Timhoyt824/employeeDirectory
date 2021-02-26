@@ -1,11 +1,8 @@
-import React, { useReducer } from 'react';
-import Moment from 'react-moment';
+import React, { Component}from 'react';
+import TableHeader from '../TableHeader'
 
 
-export default class TableData extends React.Component {
-
-
-
+class TableData extends Component {
     render() {
         return (
             <div>
@@ -14,6 +11,7 @@ export default class TableData extends React.Component {
 
 
                     <tbody>
+
 
                         {this.props.employees.map((employee) => (
                             // Key 
@@ -31,9 +29,7 @@ export default class TableData extends React.Component {
                                 <td>{employee.name.first} {employee.name.last}</td>
                                 <td>{employee.phone}</td>
                                 <td>{employee.email}</td>
-                                <Moment format="MM/DD/YYYY">
-                                    <td>{employee.dob.date}</td>
-                                </Moment>
+                                
                             </tr>
 
                         ))}
@@ -46,4 +42,7 @@ export default class TableData extends React.Component {
 
         )
     }
+
 }
+
+export default TableData;

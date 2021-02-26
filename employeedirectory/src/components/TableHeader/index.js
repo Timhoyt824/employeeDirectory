@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { Component} from 'react';
 
-export default class TableHeader extends React.Component {
-
+class TableHeader extends Component {
 
     render() {
         return (
@@ -19,7 +18,6 @@ export default class TableHeader extends React.Component {
                                 Name
 
                              </th>
-
                             <th scope="col">Phone</th>
                             <th scope="col">Email</th>
                             <th scope="col">DOB</th>
@@ -30,4 +28,7 @@ export default class TableHeader extends React.Component {
             </div>
         )
     }
+    
 }
+
+export default TableHeader;

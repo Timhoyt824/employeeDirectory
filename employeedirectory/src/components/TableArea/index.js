@@ -1,25 +1,22 @@
-import React from 'react';
-import Header from '../Header';
-import Search from '../Search';
+import React, {Component} from 'react';
 import TableData from '../TableData';
+import Search from '../Search';
+import Header from '../Header';
 import TableHeader from '../TableHeader';
-import getEmployeeName from "../../utils/API";
+import API from "../../utils/API";
 
 
-
-export default class TableArea extends React.Component {
-
-
-    state = {
+class TableArea extends Component {
+    state= {
         search: "name",
         employees: []
     };
-
-    componentDidMount = () => {
+    
+    componentDidMount() {
         this.loadEmployees();
     }
 
-    handleInputChange = (event) => {
+    handleInputChange(event){
         const { name, value } = event.target;
         this.setState(
             {
@@ -28,12 +25,11 @@ export default class TableArea extends React.Component {
         )
     }
 
-    loadEmployees = () => [
-        getEmployeeName()
+    loadEmployees() {
+        API.getEmployees()
             .then((response) => {
-                console.log(response);
                 this.setState(
-                    { 
+                    {
                         employees: response.data.results
                     }
                 )
@@ -42,25 +38,20 @@ export default class TableArea extends React.Component {
             .catch((err) => {
                 console.log(err);
             })
-    ]
+        }
 
-
-    // last search is not staying 
-    searchEmployee = () => [
-        getEmployeeName()
+    
+    searchEmployee() {
+        API.getEmployees()
             .then((response) => {
 
-                console.log(response);
-
                 let filter = this.state.search;
-
                 let filteredList = response.data.results.filter(item => { 
                     let values = Object.values(item.name.first)
                         .join("")
                         .toLowerCase();
                     return values.indexOf(filter.toLowerCase()) !== -1;
                 });
-
                 this.setState(
                     {
                         employees: filteredList
@@ -71,47 +62,40 @@ export default class TableArea extends React.Component {
             .catch((err) => {
                 console.log(err);
             })
-    ]
+        }
 
 
 
 
-    handleInputSubmit = (event) => {
+    handleInputSubmit (event) {
         event.preventDefault();
-        console.log("stuff");
-        // const BASEURL = "https://randomuser.me/api/?results=200&nat=us";
-
-        // const BASEURL = "https://randomapi.com/api/6de6abfedb24f889e0b5f675edc50deb?fmt=raw&sole";
-
         this.searchEmployee();
 
     }
 
-    SortByName = (e) => {
+    
+    SortByName  (e) {
         function handleClick(e) {
             e.preventDefault();
-            console.log('The link was clicked!');
         }
     }
 
-    // Key?
-
+    
     render() {
         return (
             <div className="wrapper" >
 
-                <PageHeader />
+                <Header />
 
-                <SearchBar
+                <Search
                     search={this.state.search}
                     handleInputChange={this.handleInputChange}
                     handleSubmit={this.handleInputSubmit}
                 />
 
-                {/* <TableHeader /> */}
                 <TableHeader SortByName={this.SortByName} />
                 <TableData
-                    employees={this.state.employees}
+                    employees={this.state.results}
                 />
 
             </div>
@@ -119,3 +103,6 @@ export default class TableArea extends React.Component {
     }
 
 }
+
+export default TableArea
+

@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {Component} from 'react';
 
 
-export default class Search extends React.Component {
+class Search extends Component {
 
 
     render() {
@@ -24,3 +24,5 @@ export default class Search extends React.Component {
         )
     };
 }
+
+export default Search;
